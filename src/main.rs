@@ -1,3 +1,8 @@
+pub mod parser;
+pub mod ioc;
+
+use parser::*;
+
 use clap::{crate_authors, crate_version, App, Arg};
 
 fn main() {
