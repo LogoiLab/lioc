@@ -66,7 +66,7 @@ fn main() {
     if matches.is_present("follow") {
         for ioc in iocs.clone() {
             if ioc.ioc_type.eq(&IocType::Url) {
-                println!("{}", follow_url(ioc.data.as_str()));
+                println!("{}", follow_url(ioc.data));
             }
         }
     }
