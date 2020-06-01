@@ -1,10 +1,13 @@
 pub mod parser;
+pub mod interaction;
 pub mod ioc;
 
 #[macro_use]
 extern crate log;
 
 use parser::*;
+use interaction::*;
+use ioc::*;
 
 use clap::{crate_authors, crate_version, App, Arg};
 use env_logger::Env;
@@ -51,9 +54,20 @@ fn main() {
     debug!("Debug mode");
     trace!("Trace mode");
 
+    let mut iocs: Vec<Ioc> = vec!();
+
     if let Some(log_path) = matches.value_of("log") {
-        for ioc in parse_file(log_path) {
+        iocs = parse_file(log_path);
+        for ioc in iocs.clone() {
             println!("IoC type: {:?}, IoC: {}", ioc.ioc_type, ioc.data);
+        }
+    }
+
+    if matches.is_present("follow") {
+        for ioc in iocs.clone() {
+            if ioc.ioc_type.eq(&IocType::Url) {
+                println!("{}", follow_url(ioc.data.as_str()));
+            }
         }
     }
 }
