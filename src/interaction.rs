@@ -12,11 +12,11 @@ impl Handler for Collector {
 }
 
 pub fn follow_url(url: String) -> String {
-    let mut easy = Easy2::new(Collector(Vec::new()));
-    easy.get(true).unwrap();
-    easy.url(url.as_str()).unwrap();
-    easy.follow_location(true).unwrap();
-    easy.perform().unwrap();
+    let mut handle = Easy2::new(Collector(Vec::new()));
+    handle.get(true).unwrap();
+    handle.url(url.as_str()).unwrap();
+    handle.follow_location(true).unwrap();
+    handle.perform().unwrap();
 
-    return hex_digest(Algorithm::SHA256, &easy.get_ref().0);
+    return hex_digest(Algorithm::SHA256, &handle.get_ref().0);
 }
