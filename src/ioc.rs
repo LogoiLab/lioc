@@ -1,8 +1,9 @@
 pub struct Ioc {
-    ioc_type: IocType,
-    data: String,
+    pub ioc_type: IocType,
+    pub data: String,
 }
 
+#[derive(Debug)]
 pub enum IocType {
     Ip,
     Domain,
